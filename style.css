@@ -1,0 +1,26 @@
+/* TODO EL DOCUMENTO */
+* {
+    box-sizing: border-box;
+    margin: 0 auto;
+    font-family: 'Urbanist', sans-serif;
+}
+
+/* SELECTOR ROOT VARIABLES DE COLOR*/
+:root {
+    --light-blue: #B2D7EE;
+    --dark-blue: #4B789C;
+    --light-green: #B7DEA5;
+    --orange: #FFA532;
+    --red: #F40C2F;
+}
+
+
+
+.background {
+    background-image: url('public/img/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+}
+
