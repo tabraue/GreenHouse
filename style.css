@@ -83,6 +83,7 @@
 /* TABLERO DEL JUEGO */
 .board {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -103,61 +104,63 @@ form {
 }
 
 .game {
+  width: 100vw;
+  height: 100vh;
+  /* position: relative; */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  width: 100vw;
-  height: 100vh;
+  align-items: center;
+}
+
+.flowers-container, .pots-container {
+  width: 100%;
+  /* position: relative; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 50px;
+
 }
 
 .pot {
-  display: flex;
-  flex-direction: row;
-  gap: var(--custom);
-}
-
-.pot > img {
   width: 100px;
   height: 100px;
-}
-
-.flower{
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
-  background-color: green;
-  width: 100vw;
-  height: 100vh;
+  bottom: 0;
+  z-index: 1; 
+  gap: 50px;
 }
+
 
 .each-flower {
-  background-color: fuchsia;
-  width: fit-content;
-  height: fit-content;
-  position: relative; 
-  overflow: hidden;
-  display: flex;
+  /* position: absolute; */
+   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-/*   background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 1) 12%,
-    transparent 40%,
-  ); */
+  /* justify-content: center;  */
+  /* bottom: 0;  */
+  z-index: 2;
+  gap: 50px;
+  background-color: green;
+
 }
 
 .each-flower > img {
   width: 100px;
   height: 100px;
   object-fit: cover;
+  /* background-color: pink; */
 }
+
 
 /* HEADER */
 header {
   position: fixed;
-  z-index: 1;
+  z-index: 3;
   top: 0;
   right: 0;
   width: 100vw;
@@ -169,9 +172,11 @@ header {
 /* FOOTER */
 footer {
   position: fixed;
+  z-index: 2;
   bottom: 0;
   right: 0;
   width: 100vw;
+  height: 20px;
   background-color: var(--orange);
   box-shadow: 0px -10px 10px white;
 }

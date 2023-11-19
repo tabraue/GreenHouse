@@ -1,3 +1,5 @@
+let windowHeight = 0;
+
 $(document).ready(() => {
   /**
    * Función que inserta un texto cuando
@@ -53,7 +55,7 @@ $(document).ready(() => {
       flowers.push(tag);
     }
 
-    $(".flower").html(flowers.join(""));
+    $(".flowers-container").html(flowers.join(""));
   };
 
   /**
@@ -62,16 +64,16 @@ $(document).ready(() => {
   const renderPots = (num) => {
     let pots = [];
     for (let i = 1; i <= num; i++) {
-      let tag = `<img src="public/img/pot.png" alt="Pot" />`;
+      let tag = `<img src="public/img/pot.png" alt="Pot" class="pot"/>`;
       pots.push(tag);
     }
-    $(".pot").html(pots.join(""));
+    $(".pots-container").html(pots.join(""));
   };
 
   /**
    * Función para gestionar el movimiento de las plantas
    */
-  const movePlant = (num) => {
+  /*   const movePlant = (num) => {
     const position = {
       "margin-bottom": "100%",
       "z-index": -1,
@@ -87,32 +89,26 @@ $(document).ready(() => {
       $(el).animate(position, milisec);
     });
   };
-
+ */
   const animateImage = (element, speed) => {
-    const position = {
-      "height": "500px",
-      //"z-index": -1,
-    };
 
     const duration = speed * 1000;
 
-    //.animate( properties [, duration ] [, easing ] [, complete ] )
-    $(element).animate( position,
+    windowHeight = $(window).innerHeight() - 100;
+
+    $(element).animate(
+      { height: `${windowHeight}px` },
       {
         duration,
-          specialEasing: {
-            width: "linear",
-            height: "easeOutBounce"
-          }, 
-        
-          complete: function() {
-            $( this ).after( "<div>Animation complete.</div>" );
-          }
+        complete: function () {
+          //do something here!
+          // $(this).after("<div>Animation complete.</div>");
+        },
       }
     );
   };
 
-/*   const animateImage = (element, speed) => {
+  /*   const animateImage = (element, speed) => {
     const position = {
       top: "100%",
     };
@@ -131,22 +127,22 @@ $(document).ready(() => {
       );
   }; */
 
-
   const moveImages = () => {
-      $(".each-flower img").each((index, element) => {
-        console.log(element)
-        const speed = Math.floor(Math.random() * 10) + 1; 
-        animateImage(element, speed);
+    $(".each-flower").each((index, element) => {
+      const speed = Math.floor(Math.random() * 10) + 1;
+      animateImage(element, speed);
     });
   };
 
   // Llamar a la función para iniciar la animación
   const showGameArea = (num) => {
-    $(".game").fadeIn("slow", () => {
+     $(".game").fadeIn("fast", () => {
+
+/*       $(".flowers-container").fadeIn("fast");
+      $(".pots-container").fadeIn("fast"); */
       renderPots(num);
       renderFlowers(num);
       moveImages();
-      //movePlant(num);
     });
   };
 
@@ -155,9 +151,9 @@ $(document).ready(() => {
    * excepto .main-menu
    */
   $(".board").hide();
-  $(".game").hide();
-  //renderFlowers(0);
-  //renderPots(0);
+  $(".game").hide()
+  //$(".flowers-container").hide();
+  //$(".pots-container").hide();
 
   /**
    * Botón del menú principal
