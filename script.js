@@ -43,22 +43,18 @@ $(document).ready(() => {
 
     for (let i = 1; i <= num; i++) {
       let tag = `
-<div class="each-flower">
-
+                  <div class="each-flower">
                     <img
                         src="public/img/f${i}.png"
                         alt=${altName(i)}
                         id="f${i}"
                     />
-</div>
-
-                `;
+                  </div>`;
       flowers.push(tag);
     }
 
     $(".flower").html(flowers.join(""));
   };
-
 
   /**
    * Función para renderizar el número correcto de macetas seleccionadas
@@ -83,97 +79,76 @@ $(document).ready(() => {
 
     let speeds = [];
     for (let i = 0; i < num; i++) {
-        speeds.push(Math.floor(Math.random() * 10) + 1);
+      speeds.push(Math.floor(Math.random() * 10) + 1);
     }
 
     $(".flower img").each((idx, el) => {
-    let milisec = speeds[idx] * 1000;
-        $(el).animate(position, milisec);
+      let milisec = speeds[idx] * 1000;
+      $(el).animate(position, milisec);
     });
-
-
-  }
+  };
 
   const animateImage = (element, speed) => {
-    console.log(speed)
-
     const position = {
-      "margin-bottom": "500px",
-      //"z-index": -1, 
+      "height": "500px",
+      //"z-index": -1,
+    };
+
+    const duration = speed * 1000;
+
+    //.animate( properties [, duration ] [, easing ] [, complete ] )
+    $(element).animate( position,
+      {
+        duration,
+          specialEasing: {
+            width: "linear",
+            height: "easeOutBounce"
+          }, 
+        
+          complete: function() {
+            $( this ).after( "<div>Animation complete.</div>" );
+          }
+      }
+    );
+  };
+
+/*   const animateImage = (element, speed) => {
+    const position = {
+      top: "100%",
     };
   
     const duration = speed * 1000;
-    console.log(duration)
   
+    $(element)
+      .animate(
+        {
+          position
+        },
+        {
+          duration,
+          easing: "linear",
+        }
+      );
+  }; */
 
-    //$(element).animate({height: "500px"}, duration);
-  };
-  
+
   const moveImages = () => {
-
-
-
-
-/*     $(".each-flower").each((index, element) => {
-      const speed = Math.floor(Math.random() * 10) + 1; 
-  
-      animateImage(element, speed);
-    }); */
+      $(".each-flower img").each((index, element) => {
+        console.log(element)
+        const speed = Math.floor(Math.random() * 10) + 1; 
+        animateImage(element, speed);
+    });
   };
-  
-
 
   // Llamar a la función para iniciar la animación
-    const showGameArea = (num) => {
+  const showGameArea = (num) => {
     $(".game").fadeIn("slow", () => {
-      let pots = [];
-      for (let i = 1; i <= num; i++) {
-        let tag = `<img src="public/img/pot.png" alt="Pot" />`;
-        pots.push(tag);
-      }
-      $(".pot").html(pots.join(""));
-
-
-      let flowers = [];
-
-      for (let i = 1; i <= num; i++) {
-        let tag = `
-  <div class="each-flower">
-  
-                      <img
-                          src="public/img/f${i}.png"
-                          alt=${altName(i)}
-                          id="f${i}"
-                      />
-  </div>
-  
-                  `;
-        flowers.push(tag);
-      }
-  
-      $(".flower").html(flowers.join(""));
-
-
-
-      $("#f1").animate( {"height" : "500px"} ,3000);
-
-
-
-
-
-
-
-
-
-        //renderPots(num);
-        //renderFlowers(num);
-
-       // moveImages();
-        //movePlant(num);
-      });
-  
-  }
-
+      renderPots(num);
+      renderFlowers(num);
+      moveImages();
+      //movePlant(num);
+    });
+  };
 
   /**
    * Estado inicial de los elementos: HIDDEN
@@ -209,7 +184,7 @@ $(document).ready(() => {
    */
   $("#grow-btn").click(() => {
     $("#form").fadeOut("slow", () => {
-        showGameArea(num);
+      showGameArea(num);
     });
   });
 });

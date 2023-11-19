@@ -110,9 +110,7 @@ form {
   height: 100vh;
 }
 
-.pot,
-.flower,
-#box {
+.pot {
   display: flex;
   flex-direction: row;
   gap: var(--custom);
@@ -123,22 +121,37 @@ form {
   height: 100px;
 }
 
-/* #box {
-  background: linear-gradient(
+.flower{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: green;
+  width: 100vw;
+  height: 100vh;
+}
+
+.each-flower {
+  background-color: fuchsia;
+  width: fit-content;
+  height: fit-content;
+  position: relative; 
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+/*   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 1) 12%,
     transparent 40%,
-  );
-  width: 100px;
-  height: 100px;
-  position: absolute;
-} */
+  ); */
+}
 
-.each-flower {
+.each-flower > img {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  background-color: pink;
 }
 
 /* HEADER */
