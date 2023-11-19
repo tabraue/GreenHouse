@@ -106,7 +106,6 @@ form {
 .game {
   width: 100vw;
   height: 100vh;
-  /* position: relative; */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -114,47 +113,66 @@ form {
 }
 
 .flowers-container, .pots-container {
-  width: 100%;
-  /* position: relative; */
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: flex-end;
-  gap: 50px;
-
+  gap: 20px;
 }
 
 .pot {
   width: 100px;
   height: 100px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
   bottom: 0;
   z-index: 1; 
-  gap: 50px;
 }
 
-
 .each-flower {
-  /* position: absolute; */
-   display: flex;
-  flex-direction: row;
-  /* justify-content: center;  */
-  /* bottom: 0;  */
-  z-index: 2;
-  gap: 50px;
-  background-color: green;
-
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,1) 10%, rgba(255,255,255,0) 80%);
+  border-top-right-radius: 100%;
+  border-top-left-radius: 100%;
+  transition: 2ms
 }
 
 .each-flower > img {
   width: 100px;
   height: 100px;
   object-fit: cover;
-  /* background-color: pink; */
 }
+
+
+.ranking{
+  position: absolute;
+  background-color: var(--light-blue);
+  text-align: center;
+  border-radius: var(--custom);
+  padding: 100px;
+  z-index: 5;
+  box-shadow: 10px 5px 10px white;
+}
+
+.first{
+  background-color: yellow;
+}
+
+.ranking table{
+  border: #9a3ab1;
+  border-width: 2px;
+  text-align: left;
+}
+
+.table-image > img{
+  height: 50px;
+  width: 50px;
+}
+
+ .table-icon > img{
+  height: 30px;
+  width: 40px;
+ }
+
+
 
 
 /* HEADER */

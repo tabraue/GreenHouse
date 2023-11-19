@@ -1,4 +1,9 @@
+/**
+ * Variables de scope global
+ */
 let windowHeight = 0;
+let num = 0;
+let ranking = [];
 
 $(document).ready(() => {
   /**
@@ -7,7 +12,6 @@ $(document).ready(() => {
    * Captura el número de plantas seleccionadas con
    * variable num, necesaria en scope global
    */
-  let num = 0;
 
   const plantSelection = () => {
     let txt = "Has seleccionado hacer crecer ";
@@ -21,19 +25,19 @@ $(document).ready(() => {
   const altName = (num) => {
     switch (num) {
       case 1:
-        return "Rosa de Realidad Virtual";
+        return `Rosa de Realidad Virtual`;
       case 2:
-        return "Orquídea de Óptica Cuántica";
+        return `Orquídea de Óptica Cuántica`;
       case 3:
-        return "Tulipán de Transistor";
+        return `Tulipán de Transistor`;
       case 4:
-        return "Margarita Móvil";
+        return `Margarita Móvil`;
       case 5:
-        return "Lirio Láser";
+        return `Lirio Láser`;
       case 6:
-        return "Girasol de Gigabytes";
+        return `Girasol de Gigabytes`;
       default:
-        return "Flor";
+        return `Flor`;
     }
   };
 
@@ -49,7 +53,7 @@ $(document).ready(() => {
                     <img
                         src="public/img/f${i}.png"
                         alt=${altName(i)}
-                        id="f${i}"
+                        id="${i}"
                     />
                   </div>`;
       flowers.push(tag);
@@ -59,7 +63,7 @@ $(document).ready(() => {
   };
 
   /**
-   * Función para renderizar el número correcto de macetas seleccionadas
+   * Función para renderizar el número correcto de macetas en función de las flores seleccionadas
    */
   const renderPots = (num) => {
     let pots = [];
@@ -71,27 +75,17 @@ $(document).ready(() => {
   };
 
   /**
-   * Función para gestionar el movimiento de las plantas
+   * Función para gestionar la animación de las flores
    */
-  /*   const movePlant = (num) => {
-    const position = {
-      "margin-bottom": "100%",
-      "z-index": -1,
-    };
-
-    let speeds = [];
-    for (let i = 0; i < num; i++) {
-      speeds.push(Math.floor(Math.random() * 10) + 1);
-    }
-
-    $(".flower img").each((idx, el) => {
-      let milisec = speeds[idx] * 1000;
-      $(el).animate(position, milisec);
-    });
-  };
- */
   const animateImage = (element, speed) => {
-
+    let num = parseInt(element.children[0].id);
+    ranking.push({
+      velocidad: speed,
+      nombre: altName(num),
+      imagen: `<img src="public/img/f${num}.png" alt=${altName(
+        num
+      )} id="${num}"/>`,
+    });
     const duration = speed * 1000;
 
     windowHeight = $(window).innerHeight() - 100;
@@ -100,50 +94,39 @@ $(document).ready(() => {
       { height: `${windowHeight}px` },
       {
         duration,
-        complete: function () {
-          //do something here!
-          // $(this).after("<div>Animation complete.</div>");
-        },
       }
     );
   };
 
-  /*   const animateImage = (element, speed) => {
-    const position = {
-      top: "100%",
-    };
-  
-    const duration = speed * 1000;
-  
-    $(element)
-      .animate(
-        {
-          position
-        },
-        {
-          duration,
-          easing: "linear",
-        }
-      );
-  }; */
-
-  const moveImages = () => {
-    $(".each-flower").each((index, element) => {
-      const speed = Math.floor(Math.random() * 10) + 1;
-      animateImage(element, speed);
+  /**
+   * Función que renderiza la tabla del ranking 
+   */
+  const renderRanking = (ranking) => {
+    $(".ranking").show();
+    ranking.map((el,idx) => {
+      $("tbody").append(`<tr class="${idx === 0 ? `first` : ``}">
+                            <td class="table-icon">${idx+1} - ${`<img src="public/img/heart.png"/>`}</td>
+                            <td>${el.nombre}</td>
+                            <td class="table-image">${el.imagen}</td>
+                            <td>${el.velocidad}</td>
+                          </tr>`);
     });
   };
 
-  // Llamar a la función para iniciar la animación
-  const showGameArea = (num) => {
-     $(".game").fadeIn("fast", () => {
-
-/*       $(".flowers-container").fadeIn("fast");
-      $(".pots-container").fadeIn("fast"); */
-      renderPots(num);
-      renderFlowers(num);
-      moveImages();
+  /**
+   * Función para generar las velocidades de movimiento random
+   */
+  const moveImages = () => {
+    $(".each-flower").each((index, element) => {
+      let speed = Math.floor(Math.random() * 10) + 1;
+      animateImage(element, speed);
     });
+    ranking = ranking.sort((a, b) => a.velocidad - b.velocidad);
+
+    setTimeout(() => {
+      renderRanking(ranking);
+    }, 10000);
+
   };
 
   /**
@@ -151,14 +134,13 @@ $(document).ready(() => {
    * excepto .main-menu
    */
   $(".board").hide();
-  $(".game").hide()
-  //$(".flowers-container").hide();
-  //$(".pots-container").hide();
+  $(".game").hide();
+  $(".ranking").hide();
 
   /**
    * Botón del menú principal
    * Oculta el menú y
-   * aparece el tablero de selección de plantas
+   * aparece el tablero de selección de flores
    */
   $("#plant-btn").click(() => {
     $(".main-menu").fadeOut("slow", () => {
@@ -171,12 +153,20 @@ $(document).ready(() => {
   });
 
   /**
-   * Tras seleccionar cantidad de plantas
+   * Inicia el juego
+   */
+  const showGameArea = (num) => {
+    $(".game").fadeIn("fast", () => {
+      renderPots(num);
+      renderFlowers(num);
+      moveImages();
+    });
+  };
+
+  /**
+   * Tras seleccionar cantidad de flores
    * Oculta el área de selección
    * Aparece el juego en sí
-   * renderiza macetas
-   * renderiza flores
-   * hace que las plantas se muevan
    */
   $("#grow-btn").click(() => {
     $("#form").fadeOut("slow", () => {
