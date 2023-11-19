@@ -1,26 +1,185 @@
 /* TODO EL DOCUMENTO */
 * {
-    box-sizing: border-box;
-    margin: 0 auto;
-    font-family: 'Urbanist', sans-serif;
+  box-sizing: border-box;
+  margin: 0 auto;
+  font-family: "Urbanist", sans-serif;
 }
 
 /* SELECTOR ROOT VARIABLES DE COLOR*/
 :root {
-    --light-blue: #B2D7EE;
-    --dark-blue: #4B789C;
-    --light-green: #B7DEA5;
-    --orange: #FFA532;
-    --red: #F40C2F;
+  --light-blue: #b2d7ee;
+  --dark-blue: #4b789c;
+  --purple: #9a3ab1;
+  --pink: #ffc0ff;
+  --light-green: #b7dea5;
+  --orange: #ffa532;
+  --red: #f40c2f;
+  --gray: #5e5c60;
+  --custom: 20px;
 }
-
-
 
 .background {
-    background-image: url('public/img/bg.jpg');
-    background-size: cover;
-    background-position: center;
-    width: 100vw;
-    height: 100vh;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+.background::before {
+  content: "";
+  background-image: url("public/img/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: blur(2px);
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+/* MENÚ PRINCIPAL */
+.main-menu {
+  background-color: var(--light-blue);
+  text-align: center;
+  border-radius: var(--custom);
+  padding: 100px;
+}
+
+.main-menu > h1 {
+  margin-bottom: 20px;
+}
+
+.main-menu > h2 {
+  margin-bottom: 50px;
+}
+
+#plant-btn,
+#grow-btn {
+  cursor: pointer;
+  background: linear-gradient(
+    90deg,
+    var(--light-green) 35.8%,
+    var(--dark-blue) 74.51%
+  );
+  padding: 10px 20px;
+  border-radius: var(--custom);
+  font-size: larger;
+  transition-timing-function: cubic-bezier(1, 1, 1, 1.55);
+  transition: background;
+}
+
+#plant-btn:hover,
+#grow-btn:hover {
+  background: linear-gradient(90deg, var(--orange) 35.8%, var(--red) 74.51%);
+  box-shadow: 5px 10px var(--gray);
+  transition: box-shadow 0.5s;
+}
+
+/* TABLERO DEL JUEGO */
+.board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+form {
+  background-color: var(--pink);
+  border-radius: var(--custom);
+  width: 30vw;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100vw;
+  height: 100vh;
+}
+
+.pot,
+.flower,
+#box {
+  display: flex;
+  flex-direction: row;
+  gap: var(--custom);
+}
+
+.pot > img {
+  width: 100px;
+  height: 100px;
+}
+
+/* #box {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 12%,
+    transparent 40%,
+  );
+  width: 100px;
+  height: 100px;
+  position: absolute;
+} */
+
+.each-flower {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  background-color: pink;
+}
+
+/* HEADER */
+header {
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  width: 100vw;
+  height: 30px;
+  background-color: var(--dark-blue);
+  box-shadow: 10px 5px 10px white;
+}
+
+/* FOOTER */
+footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 100vw;
+  background-color: var(--orange);
+  box-shadow: 0px -10px 10px white;
+}
+
+a {
+  font-size: small;
+  color: var(--dark-blue);
+  font-weight: bolder;
+  margin: 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+a:hover {
+  color: var(--purple);
+  transition: color 0.5s;
+  text-decoration: none;
+}
+
+a:link,
+a:visited,
+a:active {
+  text-decoration: none;
+}

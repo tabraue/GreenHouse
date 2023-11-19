@@ -1,29 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Icono de flor para la pestaña del navegador -->
-    <link rel="shortcut icon" href="public/img/flores.png" type="image/png">
+    <link rel="shortcut icon" href="public/img/flores.png" type="image/png" />
     <title>Diana's GreenHouse</title>
     <!-- Enlace al archivo de estilos CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <!-- Enlace al archivo jQuery -->
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
-            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
-            crossorigin="anonymous"></script>
+<!--     <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <!-- Enlace al archivo Javascript -->
     <script src="script.js"></script>
 
     <!-- Google Font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@100;500&display=swap" rel="stylesheet">    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Urbanist:wght@100;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <button>salir</button>
+    </header>
+    <main class="background">
+      <!-- Menu principal -->
+      <div class="main-menu">
+        <h1>Welcome to</h1>
+        <h2>Diana's GreenHouse</h2>
+        <button id="plant-btn">Plantar</button>
+      </div>
 
-</head>
-<body>
-    <div class="background">
-        <h1>holaaaaaaaaaaaaaaaaaa</h1>
-    </div>
-</body>
+      <!-- Tablero del juego -->
+      <div class="board">
+        <form action="#" id="form">
+          <label for="plantsNumber"
+            >Elige el número de plantas que quieres hacer crecer</label
+          >
+          <select id="plantsNumber" required>
+            <option value="">🌱🌱🌱🌱🌱🌱</option>
+            <option value="1">🌺 1 planta</option>
+            <option value="2">🌺🌺 2 plantas</option>
+            <option value="3">🌺🌺🌺 3 plantas</option>
+            <option value="4">🌺🌺🌺🌺 4 plantas</option>
+            <option value="5">🌺🌺🌺🌺🌺 5 plantas</option>
+            <option value="6">🌺🌺🌺🌺🌺🌺 6 plantas</option>
+          </select>
+          <span id="plantSelected">🌱🌱🌱🌱🌱🌱</span>
+          <button type="submit" id="grow-btn">¡A CRECER!</button>
+        </form>
+
+        <!-- Juego -->
+        <div class="game">
+          <div class="flower">
+            <!-- Aquí se insertarán las flores seleccionadas -->
+          </div>
+          <div class="pot">
+            <!-- Aquí se insertarán las macetas en función de las flores seleccionadas -->
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <a
+        href="https://github.com/tabraue"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Diana Tabraue Rubio</a
+      >
+    </footer>
+  </body>
 </html>
+
+
