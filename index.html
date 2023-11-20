@@ -6,15 +6,16 @@
     <!-- Icono de flor para la pestaña del navegador -->
     <link rel="shortcut icon" href="public/img/flores.png" type="image/png" />
     <title>Diana's GreenHouse</title>
+
     <!-- Enlace al archivo de estilos CSS -->
     <link rel="stylesheet" href="style.css" />
+
     <!-- Enlace al archivo jQuery -->
     <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
       crossorigin="anonymous"
     ></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- Enlace al archivo Javascript -->
     <script src="script.js"></script>
@@ -28,13 +29,15 @@
     />
   </head>
   <body>
+    <!-- Header -->
     <header>
-        <button id="end-btn">Salir</button>
-        <button id="mute-btn">🔊</button>
-      <audio class="audio" autoplay loop >
-        <source src="public/audio/exosphere-144815.mp3"/>
+      <button id="end-btn">Salir</button>
+      <button id="mute-btn">🔊</button>
+      <audio class="audio" autoplay loop>
+        <source src="public/audio/exosphere-144815.mp3" />
       </audio>
     </header>
+
     <main class="background">
       <!-- Menu principal -->
       <div class="main-menu">
@@ -50,15 +53,15 @@
             >Elige el número de plantas que quieres hacer crecer</label
           >
           <select id="plantsNumber" required>
-            <option value="">🌱🌱🌱🌱🌱🌱</option>
-            <option value="1">🌺 1 planta</option>
+            <option value="" disabled selected>¿Cuántas vas a escoger?</option>
+            <option value="1" default>🌺 1 planta</option>
             <option value="2">🌺🌺 2 plantas</option>
             <option value="3">🌺🌺🌺 3 plantas</option>
             <option value="4">🌺🌺🌺🌺 4 plantas</option>
             <option value="5">🌺🌺🌺🌺🌺 5 plantas</option>
             <option value="6">🌺🌺🌺🌺🌺🌺 6 plantas</option>
           </select>
-          <span id="plantSelected">🌱🌱🌱🌱🌱🌱</span>
+          <span id="plantSelected">🌱</span>
           <button type="submit" id="grow-btn">¡A CRECER!</button>
         </form>
 
@@ -90,9 +93,9 @@
           </tbody>
         </table>
         <div class="ranking-btn-container">
-        <button id="replant-btn">Replantar</button>
-        <button id="back-btn">Volver al inicio</button>
-      </div>
+          <button id="replant-btn">Replantar</button>
+          <button id="back-btn">Volver al inicio</button>
+        </div>
       </div>
     </main>
 

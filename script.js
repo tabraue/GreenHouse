@@ -1,19 +1,16 @@
-/**
- * Variables de scope global
- */
-let windowHeight = 0;
-let num = 0;
-let ranking = [];
-let maxSpeed = [];
 
 $(document).ready(() => {
   /**
-   * Función que inserta un texto cuando
-   * detecta un cambio en #plantsNumber select tag
-   * Captura el número de plantas seleccionadas con
-   * variable num, necesaria en scope global
+   * Variables de scope global
    */
-
+  let windowHeight = 0;
+  let num = 0;
+  let ranking = [];
+  let maxSpeed = [];
+  
+  /**
+   * Función para insertar texto cuando ha detectado el cambio
+   */
   const plantSelection = () => {
     let txt = "Has seleccionado hacer crecer ";
     num = parseInt($("#plantsNumber").val());
@@ -64,7 +61,8 @@ $(document).ready(() => {
   };
 
   /**
-   * Función para renderizar el número correcto de macetas en función de las flores seleccionadas
+   * Función para renderizar el número correcto de macetas 
+   * en función de las flores seleccionadas
    */
   const renderPots = (num) => {
     let pots = [];
@@ -77,6 +75,7 @@ $(document).ready(() => {
 
   /**
    * Función para gestionar la animación de las flores
+   * e inserción de los datos necesarios para rellenar la tabla
    */
   const animateImage = (element, speed, callback) => {
     let num = parseInt(element.children[0].id);
@@ -101,7 +100,27 @@ $(document).ready(() => {
   };
 
   /**
-   * Función para generar las velocidades de movimiento random
+   * Función que renderiza la tabla del ranking con la info correspondiente a cada "replantar"
+   */
+  const renderRanking = (rank) => {
+    $(".ranking").show();
+    $("tbody").empty();
+    rank.map((el, idx) => {
+      $("tbody").append(`<tr class="${idx === 0 ? `first` : ``}">
+                            <td class="table-icon">${
+                              idx + 1
+                            } - ${`<img src="public/img/heart.png"/>`}</td>
+                            <td class="table-name">${el.nombre}</td>
+                            <td class="table-image">${el.imagen}</td>
+                            <td class="table-speed">${el.velocidad}</td>
+                          </tr>`);
+    });
+  };
+
+  /**
+   * Función para generar el movimiento random
+   * Animar el movimiento de las flores mediante ANIMATEIMAGE
+   * Y al llegar al final del movimiento, renderizar el ranking RENDERRANKING
    */
   const moveImages = () => {
     maxSpeed = [];
@@ -125,29 +144,15 @@ $(document).ready(() => {
     });
   };
 
+  /**
+   * Función que reinicia el crecimiento
+   * "baja" las flores y se reinicia el juego
+   */  
   const replantImages = () => {
     $(".each-flower").each((index, element) => {
       $(element).animate({ height: "100px" }, 500);
     });
     moveImages();
-  };
-
-  /**
-   * Función que renderiza la tabla del ranking
-   */
-  const renderRanking = (rank) => {
-    $(".ranking").show();
-    $("tbody").empty();
-    rank.map((el, idx) => {
-      $("tbody").append(`<tr class="${idx === 0 ? `first` : ``}">
-                            <td class="table-icon">${
-                              idx + 1
-                            } - ${`<img src="public/img/heart.png"/>`}</td>
-                            <td class="table-name">${el.nombre}</td>
-                            <td class="table-image">${el.imagen}</td>
-                            <td class="table-speed">${el.velocidad}</td>
-                          </tr>`);
-    });
   };
 
   /**
@@ -168,12 +173,19 @@ $(document).ready(() => {
     });
   });
 
+  /**
+   * Captura el cambio del SELECT,
+   * ejecutando función selección de plantas
+   */
   $("#plantsNumber").change(() => {
     plantSelection();
   });
 
   /**
-   * Inicia el juego
+   * Inicia el juego: ejecuta funciones que
+   * renderiza macetas
+   * renderiza flores
+   * se mueven las imágenes de las flores
    */
   const showGameArea = (num) => {
     $(".game").fadeIn("fast", () => {
@@ -185,8 +197,8 @@ $(document).ready(() => {
 
   /**
    * Tras seleccionar cantidad de flores
-   * Oculta el área de selección
-   * Aparece el juego en sí
+   * ejecuta mostrar área de juego,
+   * donde comienza
    */
   $("#grow-btn").click(() => {
     $("#form").fadeOut("slow", () => {
@@ -196,6 +208,7 @@ $(document).ready(() => {
 
   /**
    * Si se pulsa el botón salir o volver
+   * se resetea todo volviendo al menú principal de bienvenida
    */
   $("#back-btn, #end-btn").click((e) => {
     e.preventDefault();
@@ -208,7 +221,7 @@ $(document).ready(() => {
   });
 
   /**
-   * Si se pulsa el botón replantar
+   * Botón REPLANTAR ejecuta función replantar imagenes de flores
    */
   $("#replant-btn").click((e) => {
     e.preventDefault();
@@ -216,17 +229,19 @@ $(document).ready(() => {
     replantImages();
   });
 
+  /**
+   * Función para gestionar el audio: silenciar y poner sonido
+   */
   let audio = $(".audio")[0];
-  let muteBtn = $("#mute-btn")
+  let muteBtn = $("#mute-btn");
 
   $("#mute-btn").click(() => {
     if (audio.muted) {
       audio.muted = false;
-      muteBtn.text(`🔊`)
+      muteBtn.text(`🔊`);
     } else {
       audio.muted = true;
-      muteBtn.text(`🔇`)
+      muteBtn.text(`🔇`);
     }
   });
 });
-
