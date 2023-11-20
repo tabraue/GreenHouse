@@ -100,6 +100,49 @@ $(document).ready(() => {
     );
   };
 
+    /**
+   * Función para generar las velocidades de movimiento random
+   */
+    const moveImages = () => {
+      maxSpeed = [];
+      ranking = [];
+  
+      const totalFlowers = $(".each-flower").length;
+      let flowerAnimations = 0;
+  
+      const checkEnd = () => {
+        flowerAnimations++;
+        if (flowerAnimations === totalFlowers) {
+          ranking = ranking.sort((a, b) => a.velocidad - b.velocidad);
+          renderRanking(ranking);
+        }
+      };
+  
+      $(".each-flower").each((index, element) => {
+        let speed = Math.floor(Math.random() * 10) + 1;
+        maxSpeed.push(speed);
+        animateImage(element, speed, checkEnd);
+      });
+    };
+  
+
+  const replantImages = () => {
+    $(".each-flower").each((index, element) => {
+      $(element).animate(
+        { height: `0px` },
+        {
+          complete: function () {
+            // Callback al completar la animación de descenso
+            moveImages();
+          },
+        }
+      );
+    });
+  };
+
+
+
+  
   /**
    * Función que renderiza la tabla del ranking
    */
@@ -116,65 +159,8 @@ $(document).ready(() => {
                             <td class="table-speed">${el.velocidad}</td>
                           </tr>`);
     });
-
-    $("#replant-btn").click((e) => {
-      e.preventDefault();
-
-      $(".ranking").hide();
-      $(".each-flower").each((index, element) => {
-        $(element).animate({ height: `0px` });
-      });
-      moveImages();
-    });
-
-    $("#back-btn").click((e) => {
-      e.preventDefault();
-
-      maxSpeed = [];
-      ranking = [];
-
-
-
-      $(".ranking, .game, .board").hide();
-
-      $(".ranking").hide();
-      $(".each-flower").each((index, element) => {
-        $(element).animate({ height: `0px` });
-      });
-
-      $(".main-menu").show()
-
-
-    });
-
-
   };
 
-  /**
-   * Función para generar las velocidades de movimiento random
-   */
-  const moveImages = () => {
-    maxSpeed = [];
-    ranking = [];
-
-    const totalFlowers = $(".each-flower").length;
-    let flowerAnimations = 0;
-
-    const checkEnd = () => {
-      flowerAnimations++;
-      if (flowerAnimations === totalFlowers) {
-        ranking = ranking.sort((a, b) => a.velocidad - b.velocidad);
-        renderRanking(ranking);
-      }
-    };
-
-    $(".each-flower").each((index, element) => {
-    
-      let speed = Math.floor(Math.random() * 10) + 1;
-      maxSpeed.push(speed);
-      animateImage(element, speed, checkEnd);
-    });
-  };
 
   /**
    * Estado inicial de los elementos: HIDDEN
@@ -190,7 +176,7 @@ $(document).ready(() => {
   $("#plant-btn").click(() => {
     $(".main-menu").fadeOut("slow", () => {
       $(".board").fadeIn("slow");
-      $("form").fadeIn("fast")
+      $("form").fadeIn("fast");
     });
   });
 
@@ -219,4 +205,27 @@ $(document).ready(() => {
       showGameArea(num);
     });
   });
+
+
+  $("#back-btn").click((e) => {
+    e.preventDefault();
+    maxSpeed = [];
+    ranking = [];
+
+    // Oculta todos los elementos relacionados con el juego y la tabla de ranking
+    $(".ranking, .game, .board").hide();
+
+    // Muestra el menú principal
+    $(".main-menu").fadeIn("fast");
+  });
+
+
+  $("#replant-btn").click((e) => {
+    e.preventDefault();
+    $(".ranking").hide();
+    replantImages();
+  });
+
+
+
 });

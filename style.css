@@ -71,7 +71,6 @@
   padding: 10px 20px;
   border-radius: var(--custom);
   font-size: larger;
-  transition-timing-function: cubic-bezier(1, 1, 1, 1.55);
   transition: background;
 }
 
@@ -82,6 +81,25 @@
  {
   background: linear-gradient(90deg, var(--orange) 35.8%, var(--red) 74.51%);
   box-shadow: 5px 10px var(--gray);
+  transition: box-shadow 0.5s;
+}
+
+#end-btn{
+  cursor: pointer;
+  margin-left: 5px;
+  background: linear-gradient(
+    90deg,
+    var(--light-green) 35.8%,
+    var(--dark-blue) 74.51%
+  );
+  border-radius: var(--custom);
+  font-size: small;
+  transition: background;
+}
+
+#end-btn:hover{
+  background: linear-gradient(90deg, var(--orange) 35.8%, var(--red) 74.51%);
+  box-shadow: 2px 5px var(--gray);
   transition: box-shadow 0.5s;
 }
 
@@ -246,6 +264,8 @@ header {
   height: 30px;
   background-color: var(--dark-blue);
   box-shadow: 10px 5px 10px white;
+  display: flex;
+  align-items: center;
 }
 
 /* FOOTER */
