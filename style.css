@@ -59,7 +59,9 @@
 }
 
 #plant-btn,
-#grow-btn {
+#grow-btn,
+#replant-btn,
+#back-btn {
   cursor: pointer;
   background: linear-gradient(
     90deg,
@@ -74,11 +76,15 @@
 }
 
 #plant-btn:hover,
-#grow-btn:hover {
+#grow-btn:hover,
+#replant-btn:hover,
+#back-btn:hover
+ {
   background: linear-gradient(90deg, var(--orange) 35.8%, var(--red) 74.51%);
   box-shadow: 5px 10px var(--gray);
   transition: box-shadow 0.5s;
 }
+
 
 /* TABLERO DEL JUEGO */
 .board {
@@ -112,7 +118,8 @@ form {
   align-items: center;
 }
 
-.flowers-container, .pots-container {
+.flowers-container,
+.pots-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -124,15 +131,19 @@ form {
   width: 100px;
   height: 100px;
   bottom: 0;
-  z-index: 1; 
+  z-index: 1;
 }
 
 .each-flower {
-  background: rgb(255,255,255);
-  background: linear-gradient(180deg, rgba(255,255,255,1) 10%, rgba(255,255,255,0) 80%);
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 10%,
+    rgba(255, 255, 255, 0) 80%
+  );
   border-top-right-radius: 100%;
   border-top-left-radius: 100%;
-  transition: 2ms
+  transition: 2ms;
 }
 
 .each-flower > img {
@@ -141,39 +152,89 @@ form {
   object-fit: cover;
 }
 
-
-.ranking{
+.ranking {
   position: absolute;
   background-color: var(--light-blue);
-  text-align: center;
   border-radius: var(--custom);
   padding: 100px;
   z-index: 5;
   box-shadow: 10px 5px 10px white;
+  display: flex;
+  flex-direction: column;
 }
 
-.first{
-  background-color: yellow;
+.ranking table {
+  border: none;
+  border-collapse: collapse;
+  text-align: center;
+  justify-content: center;
 }
 
-.ranking table{
-  border: #9a3ab1;
-  border-width: 2px;
+.ranking td,
+.ranking th,
+.ranking h1 {
+  padding: 10px 10px 10px;
+}
+
+.ranking h1 {
+  text-align: center;
+  mix-blend-mode: multiply;
+  position: relative;
+  color: #000;
+  background: #fff;
+  font-weight: bold;
+}
+
+.ranking h1:before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, var(--purple), var(--orange), var(--dark-blue));
+  mix-blend-mode: screen; 
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.first {
+  background-color: #ffffc3;
+  box-shadow: 10px 5px 10px white;
+
+}
+
+.table-icon {
+  align-self: center;
+  font-weight: bold;
+}
+
+.table-icon > img {
+  height: 30px;
+  width: 40px;
+  vertical-align: middle;
+}
+
+.table-name {
   text-align: left;
+  font-weight: bold;
 }
 
-.table-image > img{
+.table-image > img {
   height: 50px;
   width: 50px;
 }
 
- .table-icon > img{
-  height: 30px;
-  width: 40px;
- }
+.table-speed{
+  font-weight: bold;
+  font-size: larger;
+}
 
-
-
+.ranking-btn-container{
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
 
 /* HEADER */
 header {

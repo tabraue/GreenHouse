@@ -4,6 +4,7 @@
 let windowHeight = 0;
 let num = 0;
 let ranking = [];
+let maxSpeed = [];
 
 $(document).ready(() => {
   /**
@@ -77,7 +78,7 @@ $(document).ready(() => {
   /**
    * Función para gestionar la animación de las flores
    */
-  const animateImage = (element, speed) => {
+  const animateImage = (element, speed, callback) => {
     let num = parseInt(element.children[0].id);
     ranking.push({
       velocidad: speed,
@@ -94,48 +95,92 @@ $(document).ready(() => {
       { height: `${windowHeight}px` },
       {
         duration,
+        complete: callback,
       }
     );
   };
 
   /**
-   * Función que renderiza la tabla del ranking 
+   * Función que renderiza la tabla del ranking
    */
-  const renderRanking = (ranking) => {
+  const renderRanking = (rank) => {
     $(".ranking").show();
-    ranking.map((el,idx) => {
+    $("tbody").empty();
+    rank.map((el, idx) => {
       $("tbody").append(`<tr class="${idx === 0 ? `first` : ``}">
-                            <td class="table-icon">${idx+1} - ${`<img src="public/img/heart.png"/>`}</td>
-                            <td>${el.nombre}</td>
+                            <td class="table-icon">${
+                              idx + 1
+                            } - ${`<img src="public/img/heart.png"/>`}</td>
+                            <td class="table-name">${el.nombre}</td>
                             <td class="table-image">${el.imagen}</td>
-                            <td>${el.velocidad}</td>
+                            <td class="table-speed">${el.velocidad}</td>
                           </tr>`);
     });
+
+    $("#replant-btn").click((e) => {
+      e.preventDefault();
+
+      $(".ranking").hide();
+      $(".each-flower").each((index, element) => {
+        $(element).animate({ height: `0px` });
+      });
+      moveImages();
+    });
+
+    $("#back-btn").click((e) => {
+      e.preventDefault();
+
+      maxSpeed = [];
+      ranking = [];
+
+
+
+      $(".ranking, .game, .board").hide();
+
+      $(".ranking").hide();
+      $(".each-flower").each((index, element) => {
+        $(element).animate({ height: `0px` });
+      });
+
+      $(".main-menu").show()
+
+
+    });
+
+
   };
 
   /**
    * Función para generar las velocidades de movimiento random
    */
   const moveImages = () => {
+    maxSpeed = [];
+    ranking = [];
+
+    const totalFlowers = $(".each-flower").length;
+    let flowerAnimations = 0;
+
+    const checkEnd = () => {
+      flowerAnimations++;
+      if (flowerAnimations === totalFlowers) {
+        ranking = ranking.sort((a, b) => a.velocidad - b.velocidad);
+        renderRanking(ranking);
+      }
+    };
+
     $(".each-flower").each((index, element) => {
+    
       let speed = Math.floor(Math.random() * 10) + 1;
-      animateImage(element, speed);
+      maxSpeed.push(speed);
+      animateImage(element, speed, checkEnd);
     });
-    ranking = ranking.sort((a, b) => a.velocidad - b.velocidad);
-
-    setTimeout(() => {
-      renderRanking(ranking);
-    }, 10000);
-
   };
 
   /**
    * Estado inicial de los elementos: HIDDEN
    * excepto .main-menu
    */
-  $(".board").hide();
-  $(".game").hide();
-  $(".ranking").hide();
+  $(".ranking, .game, .board").hide();
 
   /**
    * Botón del menú principal
@@ -145,6 +190,7 @@ $(document).ready(() => {
   $("#plant-btn").click(() => {
     $(".main-menu").fadeOut("slow", () => {
       $(".board").fadeIn("slow");
+      $("form").fadeIn("fast")
     });
   });
 
