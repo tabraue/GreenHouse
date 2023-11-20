@@ -100,40 +100,36 @@ $(document).ready(() => {
     );
   };
 
-    /**
+  /**
    * Función para generar las velocidades de movimiento random
    */
-    const moveImages = () => {
-      maxSpeed = [];
-      ranking = [];
-  
-      const totalFlowers = $(".each-flower").length;
-      let flowerAnimations = 0;
-  
-      const checkEnd = () => {
-        flowerAnimations++;
-        if (flowerAnimations === totalFlowers) {
-          ranking = ranking.sort((a, b) => a.velocidad - b.velocidad);
-          renderRanking(ranking);
-        }
-      };
-  
-      $(".each-flower").each((index, element) => {
-        let speed = Math.floor(Math.random() * 10) + 1;
-        maxSpeed.push(speed);
-        animateImage(element, speed, checkEnd);
-      });
+  const moveImages = () => {
+    maxSpeed = [];
+    ranking = [];
+
+    const totalFlowers = $(".each-flower").length;
+    let flowerAnimations = 0;
+
+    const checkEnd = () => {
+      flowerAnimations++;
+      if (flowerAnimations === totalFlowers) {
+        ranking = ranking.sort((a, b) => a.velocidad - b.velocidad);
+        renderRanking(ranking);
+      }
     };
-  
+
+    $(".each-flower").each((index, element) => {
+      let speed = Math.floor(Math.random() * 10) + 1;
+      maxSpeed.push(speed);
+      animateImage(element, speed, checkEnd);
+    });
+  };
 
   const replantImages = () => {
     $(".each-flower").each((index, element) => {
-      $(element).animate(
-        { height: '100px' },
-          500
-        );
-      });
-      moveImages();
+      $(element).animate({ height: "100px" }, 500);
+    });
+    moveImages();
   };
 
   /**
@@ -153,7 +149,6 @@ $(document).ready(() => {
                           </tr>`);
     });
   };
-
 
   /**
    * Estado inicial de los elementos: HIDDEN
@@ -199,7 +194,6 @@ $(document).ready(() => {
     });
   });
 
-
   /**
    * Si se pulsa el botón salir o volver
    */
@@ -213,7 +207,6 @@ $(document).ready(() => {
     $(".main-menu").fadeIn("fast");
   });
 
-
   /**
    * Si se pulsa el botón replantar
    */
@@ -223,6 +216,17 @@ $(document).ready(() => {
     replantImages();
   });
 
+  let audio = $(".audio")[0];
+  let muteBtn = $("#mute-btn")
 
-
+  $("#mute-btn").click(() => {
+    if (audio.muted) {
+      audio.muted = false;
+      muteBtn.text(`🔊`)
+    } else {
+      audio.muted = true;
+      muteBtn.text(`🔇`)
+    }
+  });
 });
+
