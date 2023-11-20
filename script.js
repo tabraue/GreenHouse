@@ -130,13 +130,10 @@ $(document).ready(() => {
     $(".each-flower").each((index, element) => {
       $(element).animate(
         { height: '100px' },
-        {
-          complete: function () {
-            moveImages();
-          },
-        }
-      );
-    });
+          500
+        );
+      });
+      moveImages();
   };
 
   /**
