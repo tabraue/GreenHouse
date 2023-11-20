@@ -129,10 +129,9 @@ $(document).ready(() => {
   const replantImages = () => {
     $(".each-flower").each((index, element) => {
       $(element).animate(
-        { height: `0px` },
+        { height: '100px' },
         {
           complete: function () {
-            // Callback al completar la animación de descenso
             moveImages();
           },
         }
@@ -140,9 +139,6 @@ $(document).ready(() => {
     });
   };
 
-
-
-  
   /**
    * Función que renderiza la tabla del ranking
    */
@@ -207,19 +203,23 @@ $(document).ready(() => {
   });
 
 
-  $("#back-btn").click((e) => {
+  /**
+   * Si se pulsa el botón salir o volver
+   */
+  $("#back-btn, #end-btn").click((e) => {
     e.preventDefault();
     maxSpeed = [];
     ranking = [];
 
-    // Oculta todos los elementos relacionados con el juego y la tabla de ranking
+    $(".each-flower").stop();
     $(".ranking, .game, .board").hide();
-
-    // Muestra el menú principal
     $(".main-menu").fadeIn("fast");
   });
 
 
+  /**
+   * Si se pulsa el botón replantar
+   */
   $("#replant-btn").click((e) => {
     e.preventDefault();
     $(".ranking").hide();
