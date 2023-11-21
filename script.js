@@ -79,13 +79,14 @@ $(document).ready(() => {
    */
   const animateImage = (element, speed, callback) => {
     let num = parseInt(element.children[0].id);
+
     ranking.push({
       velocidad: speed,
       nombre: altName(num),
-      imagen: `<img src="public/img/f${num}.png" alt=${altName(
-        num
-      )} id="${num}"/>`,
+      imagen: `<img src="public/img/f${num}.png" 
+              alt=${altName(num)} id="${num}"/>`,
     });
+    
     const duration = speed * 1000;
 
     windowHeight = $(window).innerHeight() - 100;
